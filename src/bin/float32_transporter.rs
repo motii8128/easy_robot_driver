@@ -6,9 +6,9 @@ use safe_drive::{
     msg::common_interfaces::std_msgs,
 };
 
-use rust_robo_utils::connector::udp_bridge;
+use easy_robot_driver::*;
 use ros2_rust_util::get_str_parameter;
-use async_std::{self, channel::unbounded};
+use async_std;
 
 #[async_std::main]
 async fn main()->Result<(), DynError>
@@ -23,14 +23,11 @@ async fn main()->Result<(), DynError>
 
     let reciever_addr = get_str_parameter(node.get_name(), "reciever_addr", "127.0.0.1:8080");
     let sender_addr = get_str_parameter(node.get_name(), "sender_addr", "127.0.0.1:34543");
-    let (sig_s, sig_r) = unbounded();
     pr_info!(log, "Start {}", node.get_name());
 
-    let sender_task = async_std::task::spawn(udp_bridge::udp_f32_sender(sender_addr, reciever_addr, sig_r, subscriber));
-    let signal_task = async_std::task::spawn(udp_bridge::get_signal(sig_s));
+    let transporter = async_std::task::spawn(udp_f32_transporter(sender_addr, reciever_addr, subscriber));
 
-    sender_task.await?;
-    signal_task.await?;
+    transporter.await?;
 
     pr_info!(log, "shutdown server");
 
