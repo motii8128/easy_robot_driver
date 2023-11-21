@@ -202,7 +202,8 @@ pub async fn five_motor_serial_writer(
                     Ok(_size)=>{
                         match port.read(&mut buf) {
                             Ok(size)=>{
-
+                                let response: String = serde_json::from_slice(&buf[..size]).unwrap();
+                                pr_info!(log, "Response:{}", response);
                             }
                             Err(e)=>{
                                 pr_error!(log, "Can't read from port:[{:?}]", e);
