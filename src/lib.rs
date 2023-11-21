@@ -1,6 +1,6 @@
 use async_std::net::*;
-
 use serde::{Deserialize, Serialize};
+use serialport;
 
 use safe_drive::{
     error::DynError,
@@ -159,6 +159,61 @@ pub async fn udp_f32_transporter(
     }
 }
 
+pub async fn five_motor_serial_writer(
+    mut sub_fl:Subscriber<std_msgs::msg::Float32>,
+    mut sub_fr:Subscriber<std_msgs::msg::Float32>,
+    mut sub_rl:Subscriber<std_msgs::msg::Float32>,
+    mut sub_rr:Subscriber<std_msgs::msg::Float32>,
+    mut sub_ex:Subscriber<std_msgs::msg::Float32>,
+    port_name:String,
+    baud_rate:u32,
+)->Result<(), DynError>
+{
+    let log = Logger::new(&port_name);
+    pr_info!(log, "Start {} node", port_name);
+
+    let mut port = serialport::new(port_name, baud_rate)
+        .timeout(std::time::Duration::from_millis(10))
+        .open().expect("Failed to open port");
+
+    let mut buf = [0; 2048];
+
+    loop {
+        let msg_fl = sub_fl.recv().await?;
+        let msg_fr = sub_fr.recv().await?;
+        let msg_rl = sub_rl.recv().await?;
+        let msg_rr = sub_rr.recv().await?;
+        let msg_ex = sub_ex.recv().await?;
+
+        let send_data = _Motors_{
+            motor_fl:msg_fl.data,
+            motor_fr:msg_fr.data,
+            motor_rl:msg_rl.data,
+            motor_rr:msg_rr.data,
+            motor_ex:msg_ex.data,
+        };
+
+        let serialized = serde_json::to_string(&send_data);
+
+        match serialized {
+            Ok(get_data)=>{
+                match port.write(get_data.as_bytes())
+                {
+                    Ok(_size)=>{
+                        port.read(&mut buf);
+                    }
+                    Err(e)=>{
+                        pr_error!(log, "serial write Err {:?}", e);
+                    }
+                }
+            }
+            Err(e)=>{
+                pr_error!(log, "Serialize Err {:?}", e);
+            }
+        }
+    }
+}
+
 
 #[derive(Deserialize, Serialize)]
 pub struct _Vector3_
@@ -179,4 +234,14 @@ pub struct _Twist_
 pub struct _Float32_
 {
     pub data:f32,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct _Motors_
+{
+    motor_fl:f32,
+    motor_fr:f32,
+    motor_rl:f32,
+    motor_rr:f32,
+    motor_ex:f32,
 }
