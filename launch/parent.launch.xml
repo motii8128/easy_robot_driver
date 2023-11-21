@@ -1,0 +1,22 @@
+<launch>
+    <node pkg="easy_robot_driver" exec="twist_reciever" name="unity_reciever" output="screen">
+        <param name="reciever_addr" value="127.0.0.1:8080"/>
+        <remap from="/cmd_vel" to="/parent/cmd_vel"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="simple_mechanum_driver" name="simple_mechanum" output="screen">
+        <param name="move_speed_rate" value="1.0"/>
+        <param name="rotation_speed_rate" value="1.0"/>
+        <remap from="/cmd_vel" to="/parent/cmd_vel"/>
+        
+        <remap from="wheel/front_left" to="wheel/fl" />
+        <remap from="wheel/front_right" to="wheel/fr" />
+        <remap from="wheel/raw_left" to="wheel/rl" />
+        <remap from="wheel/raw_right" to="wheel/rr" />
+    </node>
+    <node pkg="easy_robot_driver" exec="simple_motor_controller" name="extra_wheel" output="screen">
+        <param name="motor_power_rate" value="1.0"/>
+        <param name="enable_reverse" value="false"/>
+        <remap from="/input" to="/parent/cmd_vel"/>
+        <remap from="/output" to="/wheel/extra" />
+    </node>
+</launch>
