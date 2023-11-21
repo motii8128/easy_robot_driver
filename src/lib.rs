@@ -172,11 +172,11 @@ pub async fn five_motor_serial_writer(
     let log = Logger::new(&port_name);
     pr_info!(log, "Start {} node", port_name);
 
-    let mut port = serialport::new(port_name, baud_rate)
-        .timeout(std::time::Duration::from_millis(10))
-        .open().expect("Failed to open port");
-
     let mut buf = [0; 2048];
+
+    let mut port = serialport::new(port_name, baud_rate)
+        .timeout(std::time::Duration::from_millis(10)).open().expect("Failed to open port");
+
 
     loop {
         let msg_fl = sub_fl.recv().await?;
@@ -184,7 +184,7 @@ pub async fn five_motor_serial_writer(
         let msg_rl = sub_rl.recv().await?;
         let msg_rr = sub_rr.recv().await?;
         let msg_ex = sub_ex.recv().await?;
-
+        
         let send_data = _Motors_{
             motor_fl:msg_fl.data,
             motor_fr:msg_fr.data,
@@ -192,15 +192,22 @@ pub async fn five_motor_serial_writer(
             motor_rr:msg_rr.data,
             motor_ex:msg_ex.data,
         };
-
+        
         let serialized = serde_json::to_string(&send_data);
-
+        
         match serialized {
             Ok(get_data)=>{
                 match port.write(get_data.as_bytes())
                 {
                     Ok(_size)=>{
-                        port.read(&mut buf);
+                        match port.read(&mut buf) {
+                            Ok(size)=>{
+
+                            }
+                            Err(e)=>{
+                                pr_error!(log, "Can't read from port:[{:?}]", e);
+                            }
+                        }
                     }
                     Err(e)=>{
                         pr_error!(log, "serial write Err {:?}", e);
@@ -211,7 +218,7 @@ pub async fn five_motor_serial_writer(
                 pr_error!(log, "Serialize Err {:?}", e);
             }
         }
-    }
+    }   
 }
 
 
