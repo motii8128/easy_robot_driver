@@ -25,5 +25,8 @@
         <remap from="/motor/3" to="/wheel/rl"/>
         <remap from="/motor/4" to="/wheel/rr"/>
         <remap from="/motor/5" to="/wheel/extra"/>
+
+        <param name="port_name" value="/dev/ttyACM0"/>
+        <param name="baudrate" value="115200"/>
     </node>
 </launch>
