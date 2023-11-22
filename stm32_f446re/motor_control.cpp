@@ -15,19 +15,17 @@
 #include "mbed_retarget.h"
 #include "stm32f4xx.h"
 
-// User settings
+#define PWM_PIN_1 PC_9
+#define PWM_PIN_2 PB_8 
+#define PWM_PIN_3 PB_9
+#define PWM_PIN_4 PA_6
+#define PWM_PIN_5 PA_0
 
-#define PWM_PIN_V1 PC_9
-#define PWM_PIN_V2 PB_8 
-#define PWM_PIN_V3 PB_9
-#define PWM_PIN_V4 PA_6
-
-#define DIGITAL_PIN_V1 PA_5
-#define DIGITAL_PIN_V2 PA_7
-#define DIGITAL_PIN_V3 PC_8
-#define DIGITAL_PIN_V4 PC_5
-
-// User settings end
+#define DIGITAL_PIN_1 PA_5
+#define DIGITAL_PIN_2 PA_7
+#define DIGITAL_PIN_3 PC_8
+#define DIGITAL_PIN_4 PC_5
+#define DIGITAL_PIN_5 PA_4
 
 #define PULSEWIDTH_US 2000
 #define MAXIMUM_BUFFER_SIZE 128
@@ -36,15 +34,17 @@ static BufferedSerial serial_port(USBTX, USBRX);
 
 // pin setup
 
-PwmOut V1_PWM(PWM_PIN_V1);
-PwmOut V2_PWM(PWM_PIN_V2);
-PwmOut V3_PWM(PWM_PIN_V3);
-PwmOut V4_PWM(PWM_PIN_V4);
+PwmOut V1_PWM(PWM_PIN_1);
+PwmOut V2_PWM(PWM_PIN_2);
+PwmOut V3_PWM(PWM_PIN_3);
+PwmOut V4_PWM(PWM_PIN_4);
+PwmOut V5_PWM(PWM_PIN_5);
 
-DigitalOut V1_Digital(DIGITAL_PIN_V1);
-DigitalOut V2_Digital(DIGITAL_PIN_V2);
-DigitalOut V3_Digital(DIGITAL_PIN_V3);
-DigitalOut V4_Digital(DIGITAL_PIN_V4);
+DigitalOut V1_Digital(DIGITAL_PIN_1);
+DigitalOut V2_Digital(DIGITAL_PIN_2);
+DigitalOut V3_Digital(DIGITAL_PIN_3);
+DigitalOut V4_Digital(DIGITAL_PIN_4);
+DigitalOut V5_DIgital(DIGITAL_PIN_5);
 
 
 Ticker safeTimer;
