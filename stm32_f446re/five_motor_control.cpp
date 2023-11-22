@@ -61,12 +61,12 @@ T deserialize(std::vector<uint8_t>& bytes) {
     return data;
 }
 
-struct motor_control_msg{
-    std::uint8_t id;
+struct Wheel{
     float motor_1;
     float motor_2;
     float motor_3;
     float motor_4;
+    float motor_5;
 };
 
 
@@ -107,6 +107,7 @@ auto safeCheck(){
         set_motor(0.0, V2_PWM,V2_Digital);
         set_motor(0.0, V3_PWM,V3_Digital);
         set_motor(0.0, V4_PWM,V4_Digital);
+        set_motor(0.0, V5_PWM,V5_Digital);
     }
 }
 
@@ -124,6 +125,7 @@ int main() {
     V2_PWM.period_us(PULSEWIDTH_US);
     V3_PWM.period_us(PULSEWIDTH_US);
     V4_PWM.period_us(PULSEWIDTH_US);
+    V5_PWM.period_us(PULSEWIDTH_US);
     
     vector<uint8_t> data;
 
@@ -148,11 +150,12 @@ int main() {
             data.erase(data.begin());
             data.erase(data.begin());
             
-            auto mc_msg = deserialize<motor_control_msg>(data);
-            set_motor(mc_msg.motor_1, V1_PWM, V1_Digital);
-            set_motor(mc_msg.motor_2, V2_PWM, V2_Digital);
-            set_motor(mc_msg.motor_3, V3_PWM, V3_Digital);
-            set_motor(mc_msg.motor_4, V4_PWM, V4_Digital);
+            auto get_msg = deserialize<Wheel>(data);
+            set_motor(get_msg.motor_1, V1_PWM, V1_Digital);
+            set_motor(get_msg.motor_2, V2_PWM, V2_Digital);
+            set_motor(get_msg.motor_3, V3_PWM, V3_Digital);
+            set_motor(get_msg.motor_4, V4_PWM, V4_Digital);
+            set_motor(get_msg.motor_5, V5_PWM, V5_Digital);
 
             data.clear();
             safeFlag = true;
