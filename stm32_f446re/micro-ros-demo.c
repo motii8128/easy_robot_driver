@@ -11,6 +11,18 @@
 #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Aborting.\n",__LINE__,(int)temp_rc);vTaskDelete(NULL);}}
 #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){printf("Failed status on line %d: %d. Continuing.\n",__LINE__,(int)temp_rc);}}
 
+#define PWM_1 PC_9
+#define PWM_2 PB_8
+#define PWM_3 PB_9
+#define PWM_4 PA_6
+
+#define DIGI_1 PA_5
+#define DIGI_2 PA_7
+#define DIGI_3 PC_8
+#define DIGI_4 PC_5
+
+#define PULSE_WIDTH_US 2000
+
 rcl_subscription_t subscriber_fl;
 rcl_subscription_t subscriber_fr;
 rcl_subscription_t subscriber_rl;
