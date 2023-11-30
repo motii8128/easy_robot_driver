@@ -222,7 +222,6 @@ pub async fn five_motor_serial_writer(
     }   
 }
 
-
 #[derive(Deserialize, Serialize)]
 pub struct _Vector3_
 {
