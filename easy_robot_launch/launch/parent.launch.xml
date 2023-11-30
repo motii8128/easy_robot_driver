@@ -1,12 +1,12 @@
 <launch>
     <node pkg="easy_robot_driver" exec="twist_reciever" name="unity_reciever" output="screen">
         <param name="reciever_addr" value="127.0.0.1:8080"/>
-        <remap from="/cmd_vel" to="/parent/cmd_vel"/>
+        <remap from="/cmd_vel" to="/cmd_vel"/>
     </node>
     <node pkg="easy_robot_driver" exec="simple_mechanum_driver" name="simple_mechanum" output="screen">
         <param name="move_speed_rate" value="1.0"/>
         <param name="rotation_speed_rate" value="1.0"/>
-        <remap from="/cmd_vel" to="/parent/cmd_vel"/>
+        <remap from="/cmd_vel" to="/cmd_vel"/>
         
         <remap from="wheel/front_left" to="wheel/fl" />
         <remap from="wheel/front_right" to="wheel/fr" />
@@ -16,17 +16,34 @@
     <node pkg="easy_robot_driver" exec="simple_motor_controller" name="extra_wheel" output="screen">
         <param name="motor_power_rate" value="1.0"/>
         <param name="enable_reverse" value="false"/>
-        <remap from="/input" to="/parent/cmd_vel"/>
+        <remap from="/input" to="/cmd_vel"/>
         <remap from="/output" to="/wheel/extra" />
     </node>
-    <node pkg="easy_robot_driver" exec="five_motor_serial" name="wheel_serial_bridge" output="screen">
-        <remap from="/motor/1" to="/wheel/fl"/>
-        <remap from="/motor/2" to="/wheel/fr"/>
-        <remap from="/motor/3" to="/wheel/rl"/>
-        <remap from="/motor/4" to="/wheel/rr"/>
-        <remap from="/motor/5" to="/wheel/extra"/>
 
-        <param name="port_name" value="/dev/ttyACM0"/>
-        <param name="baudrate" value="115200"/>
+    <node pkg="easy_robot_driver" exec="async_motion_smoother" name="fl_smoother" output="screen">
+        <param name="gain" value="0.1"/>
+        <remap from="/input" to="/wheel/fl"/>
+        <remap from="/output" to="/smoothed/fl"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="async_motion_smoother" name="fr_smoother" output="screen">
+        <param name="gain" value="0.1"/>
+        <remap from="/input" to="/wheel/fr"/>
+        <remap from="/output" to="/smoothed/fr"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="async_motion_smoother" name="rl_smoother" output="screen">
+        <param name="gain" value="0.1"/>
+        <remap from="/input" to="/wheel/rl"/>
+        <remap from="/output" to="/smoothed/rl"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="async_motion_smoother" name="rr_smoother" output="screen">
+        <param name="gain" value="0.1"/>
+        <remap from="/input" to="/wheel/rr"/>
+        <remap from="/output" to="/smoothed/rr"/>
+    </node>
+
+    <node pkg="easy_robot_driver" exec="async_motion_smoother" name="extra_wheel_smoother" output="screen">
+        <param name="gain" value="0.1"/>
+        <remap from="/input" to="/wheel/extra"/>
+        <remap from="/output" to="/smoothed/extra"/>
     </node>
 </launch>
