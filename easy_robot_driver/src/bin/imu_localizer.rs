@@ -63,9 +63,9 @@ async fn imu_localizer(
         send_msg.twist.twist.linear.y = get_msg.linear_acceleration.y * delta_time;
         send_msg.twist.twist.linear.z = get_msg.linear_acceleration.z * delta_time;
 
-        send_msg.pose.pose.position.x = send_msg.twist.twist.linear.x * delta_time;
-        send_msg.pose.pose.position.y = send_msg.twist.twist.linear.y * delta_time;
-        send_msg.pose.pose.position.z = send_msg.twist.twist.linear.z * delta_time;
+        send_msg.pose.pose.position.x += send_msg.twist.twist.linear.x * delta_time;
+        send_msg.pose.pose.position.y += send_msg.twist.twist.linear.y * delta_time;
+        send_msg.pose.pose.position.z += send_msg.twist.twist.linear.z * delta_time;
 
         history_time = recently_time;
 
