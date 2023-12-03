@@ -48,7 +48,7 @@ async fn imu_localizer(
         {
             get_msg.linear_acceleration.y = 0.0;
         }
-        if get_msg.linear_acceleration.z.abs() < 9.9
+        if get_msg.linear_acceleration.z.abs() < 1.1
         {
             get_msg.linear_acceleration.z = 0.0;
         }
