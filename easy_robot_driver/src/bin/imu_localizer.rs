@@ -35,6 +35,8 @@ async fn imu_localizer(
 )->Result<(), DynError>
 {
     let mut send_msg = nav_msgs::msg::Odometry::new().unwrap();
+    send_msg.child_frame_id = RosString::new("odom").unwrap();
+    send_msg.header.frame_id = RosString::new("map").unwrap();
 
     let mut history_time = 0.0;
     loop {
