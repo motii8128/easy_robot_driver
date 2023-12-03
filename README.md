@@ -7,7 +7,7 @@ cd my_ws/src
 ```
 ```
 git clone --recursive https://github.com/UrgNetworks/urg_node2.git
-git clone 
+git clone https://github.com/motii8128/easy_robot_driver.git
 ```
 ```
 rosdep update
