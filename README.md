@@ -26,6 +26,7 @@ reboot
 ```
 Update dependencies
 ```
+cd my_ws/src
 rosdep update
 rosdep install -i --from-paths urg_node2
 ```
