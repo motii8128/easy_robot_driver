@@ -34,3 +34,6 @@ cd ..
 colcon build --symlink-install
 source ./install/setup.bash
 ```
+
+# detail
+please see [this](https://github.com/soarbear/haya_imu_ros2)..
