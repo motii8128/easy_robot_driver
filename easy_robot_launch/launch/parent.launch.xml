@@ -46,4 +46,8 @@
         <remap from="/input" to="/wheel/extra"/>
         <remap from="/output" to="/smoothed/extra"/>
     </node>
+
+
+    <!--   Launch URG lidar and obstacle scan   -->
+    <include file="$(find-pkg-share urg_node2)/launch/urg_node2.launch.py"/>
 </launch>
