@@ -14,10 +14,10 @@ use ros2_rust_util::get_f64_parameter;
 async fn main()->Result<(), DynError>
 {
     let ctx = Context::new()?;
-    let node = ctx.create_node("safe_obstacle_scan", None, Default::default())?;
+    let node = ctx.create_node("obstacle_scan", None, Default::default())?;
 
     let subscriber = node.create_subscriber::<sensor_msgs::msg::LaserScan>("/scan", None)?;
-    let publisher = node.create_publisher::<std_msgs::msg::Bool>("/obstacle", None)?;
+    let publisher = node.create_publisher::<std_msgs::msg::Bool>("/enable_stop", None)?;
 
     let danger_dist = get_f64_parameter(node.get_name(), "danger_dist", 1.0) as f32;
     let log = Logger::new(node.get_name());
