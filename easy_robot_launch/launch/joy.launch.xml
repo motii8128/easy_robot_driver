@@ -1,0 +1,10 @@
+<launch>
+    <node pkg="joy" exec="joy_node" name="ps4_controller" output="screen">
+        <remap from="/joy" to="/joy"/>
+    </node>
+
+    <node pkg="easy_robot_driver" exec="ps4_twist" name="ps4_wheel" output="screen">
+        <remap from="/joy" to="joy" />
+        <remap from="/output" to="/cmd_vel/wheel"/>
+    </node>
+</launch>

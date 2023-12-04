@@ -1,0 +1,15 @@
+<launch>
+    <!--   joy   -->
+    <include file="$(find-pkg-share easy_robot_launch)/launch/joy.launch.xml"/>
+    <!-- <include file="$(find-pkg-share easy_robot_launch)/launch/unity_controller.launch.xml"/> -->
+
+    <!--   mechanum wheel   -->
+    <include file="$(find-pkg-share easy_robot_launch)/launch/mechanum.launch.xml"/>
+
+    <!--   machine   -->
+
+    <!--   Launch URG lidar and obstacle scan   -->
+    <include file="$(find-pkg-share easy_robot_launch)/launch/obstacle_scan.launch.xml"/>
+    <!--  Launch haya imu node  -->
+    <include file="$(find-pkg-share easy_robot_launch)/launch/imu_localizer.launch.xml"/>
+</launch>
