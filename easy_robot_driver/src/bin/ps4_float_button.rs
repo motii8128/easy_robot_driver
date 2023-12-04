@@ -35,7 +35,7 @@ fn main()->Result<(), DynError>
 {
     let ctx = Context::new()?;
 
-    let node = ctx.create_node("ps4_float_axes", None, Default::default())?;
+    let node = ctx.create_node("ps4_float_button", None, Default::default())?;
     let mut selector = ctx.create_selector()?;
 
     let subscriber = node.create_subscriber::<sensor_msgs::msg::Joy>("/joy", None)?;
@@ -48,7 +48,7 @@ fn main()->Result<(), DynError>
         Box::new(move |msg|{
             let mut send_msg = std_msgs::msg::Float32::new().unwrap();
 
-            send_msg.data = *msg.axes.as_slice().get(num).unwrap();
+            send_msg.data = *msg.buttons.as_slice().get(num).unwrap() as f32;
 
             let _ = publisher.send(&send_msg);
         })
