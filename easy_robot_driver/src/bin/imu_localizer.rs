@@ -4,8 +4,10 @@ use safe_drive::{
     logger::Logger,
     pr_info,
     msg::common_interfaces::{sensor_msgs, nav_msgs}, 
-    topic::{subscriber::Subscriber, publisher::Publisher}
+    topic::{subscriber::Subscriber, publisher::Publisher},
+    msg::RosString
 };
+
 
 use async_std;
 
