@@ -1,8 +1,0 @@
-<launch>
-  <include file="$(find-pkg-share urg_node2)/launch/urg_node2.launch.py"/>
-    <node pkg="easy_robot_driver" exec="obstacle_scan" name="obstacle_scan" output="screen">
-        <param name="danger_dist" value="0.1"/>
-        <remap from="/scan" to="/scan"/>
-        <remap from="/enable_stop" to="/enable_stop"/>
-    </node>
-</launch>

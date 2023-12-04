@@ -1,7 +1,0 @@
-<launch>
-  <include file="$(find-pkg-share haya_imu_ros2)/launch/imu_publisher.py"/>
-    <node pkg="easy_robot_driver" exec="imu_localizer" name="imu_localizer" output="screen">
-        <remap from="/imu" to="/imu"/>
-        <remap from="/odom" to="/odom"/>
-    </node>
-</launch>
