@@ -8,8 +8,11 @@
 
     <!--   machine   -->
 
+    <!-- serial -->
+    <include file="$(find-pkg-share easy_robot_launch)/launch/serial.launch.xml"/>
+
     <!--   Launch URG lidar and obstacle scan   -->
-    <include file="$(find-pkg-share easy_robot_launch)/launch/obstacle_scan.launch.xml"/>
+    <!-- <include file="$(find-pkg-share easy_robot_launch)/launch/obstacle_scan.launch.xml"/> -->
     <!--  Launch haya imu node  -->
-    <include file="$(find-pkg-share easy_robot_launch)/launch/imu_localizer.launch.xml"/>
+    <!-- <include file="$(find-pkg-share easy_robot_launch)/launch/imu_localizer.launch.xml"/> -->
 </launch>

@@ -1,0 +1,14 @@
+<launch>
+    <node pkg="bytes_converter" exec="wheel_converter_node" name="wheel_converter_node" output="screen">
+        <remap from="/motor_0" to="smoothed/fl"/>
+        <remap from="/motor_1" to="smoothed/fr"/>
+        <remap from="/motor_2" to="smoothed/rl"/>
+        <remap from="/motor_3" to="smoothed/rr"/>
+        <remap from="/output" to="serial/wheel"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="serial_transporter" name="wheel_serial" output="screen">
+        <remap from="/input" to="serial/wheel"/>
+        <param name="port_name" value="/dev/ttyACM0"/>
+        <param name="baud_rate" value="115200"/>
+    </node>
+</launch>
