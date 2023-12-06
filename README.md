@@ -39,4 +39,4 @@ source ./install/setup.bash
 ```
 
 # detail
-please see [this](https://github.com/soarbear/haya_imu_ros2)..
+use [haya imu](https://github.com/soarbear/haya_imu_ros2) and [hokuyo urg lidar](https://github.com/Hokuyo-aut/urg_node2)
