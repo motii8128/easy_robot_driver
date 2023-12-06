@@ -22,24 +22,24 @@ std::vector<uint8_t> serialize(const T& data) {
     return bytes;
 }
 
-class BytesConverter : public rclcpp::Node
+class WheelConverter : public rclcpp::Node
 {
   public:
-    BytesConverter()
-    : Node("bytes_converter")
+    WheelConverter()
+    : Node("wheel_converter")
     {
       publisher_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/output", 10);
       subscription_0 = this->create_subscription<std_msgs::msg::Float32>(
-      "/motor_0", 10, std::bind(&BytesConverter::callback_0, this, _1));
+      "/motor_0", 10, std::bind(&WheelConverter::callback_0, this, _1));
 
       subscription_1 = this->create_subscription<std_msgs::msg::Float32>(
-      "/motor_1", 10, std::bind(&BytesConverter::callback_1, this, _1));
+      "/motor_1", 10, std::bind(&WheelConverter::callback_1, this, _1));
 
       subscription_2 = this->create_subscription<std_msgs::msg::Float32>(
-      "/motor_2", 10, std::bind(&BytesConverter::callback_2, this, _1));
+      "/motor_2", 10, std::bind(&WheelConverter::callback_2, this, _1));
 
       subscription_3 = this->create_subscription<std_msgs::msg::Float32>(
-      "/motor_3", 10, std::bind(&BytesConverter::callback_3, this, _1));
+      "/motor_3", 10, std::bind(&WheelConverter::callback_3, this, _1));
 
       timer_ = this->create_wall_timer(20ms , [this](){
         this->timer_callback();
@@ -68,7 +68,7 @@ class BytesConverter : public rclcpp::Node
     }
 
     void timer_callback(){
-      RCLCPP_INFO(this->get_logger(), "fl:%.5lf fr:%.5lf rl:%.5lf rr:%.5lf \n", data.motor_0, data.motor_1, data.motor_2, data.motor_3);
+      RCLCPP_INFO(this->get_logger(), "fl:%.5lf fr:%.5lf rl:%.5lf rr:%.5lf", data.motor_0, data.motor_1, data.motor_2, data.motor_3);
 
       auto msg = std_msgs::msg::UInt8MultiArray();
       msg.data = serialize(data);
@@ -93,7 +93,7 @@ class BytesConverter : public rclcpp::Node
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<BytesConverter>());
+  rclcpp::spin(std::make_shared<WheelConverter>());
   rclcpp::shutdown();
   return 0;
 }

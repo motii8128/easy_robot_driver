@@ -14,15 +14,15 @@ std::vector<uint8_t> serialize(const T& data) {
     return bytes;
 }
 
-class BytesConverter : public rclcpp::Node
+class OneMotorConverter : public rclcpp::Node
 {
   public:
-    BytesConverter()
-    : Node("bytes_converter")
+    OneMotorConverter()
+    : Node("one_motor_converter")
     {
       publisher_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/output", 10);
       subscription_ = this->create_subscription<std_msgs::msg::Float32>(
-      "/input", 10, std::bind(&BytesConverter::callback, this, _1));
+      "/input", 10, std::bind(&OneMotorConverter::callback, this, _1));
     }
 
   private:
@@ -47,7 +47,7 @@ class BytesConverter : public rclcpp::Node
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<BytesConverter>());
+  rclcpp::spin(std::make_shared<OneMotorConverter>());
   rclcpp::shutdown();
   return 0;
 }
