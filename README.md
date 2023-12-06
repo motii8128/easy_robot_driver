@@ -22,6 +22,7 @@ Set serial
 chmod +x ~/my_ws/src/haya_imu_ros2/script/create_rules.sh
 ~/my_ws/src/haya_imu_ros2/script/create_rules.sh
 sudo udevadm control --reload-rules && udevadm trigger
+sudo gpasswd --add $USER dialout
 reboot
 ```
 Update dependencies
