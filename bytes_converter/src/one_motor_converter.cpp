@@ -21,14 +21,16 @@ class BytesConverter : public rclcpp::Node
     : Node("bytes_converter")
     {
       publisher_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/output", 10);
-      subscription_0 = this->create_subscription<std_msgs::msg::Float32>(
-      "/output", 10, std::bind(&BytesConverter::callback_0, this, _1));
+      subscription_ = this->create_subscription<std_msgs::msg::Float32>(
+      "/input", 10, std::bind(&BytesConverter::callback, this, _1));
     }
 
   private:
     void callback(const std_msgs::msg::Float32 sub_msg)
     {
       auto get_data = sub_msg.data;
+
+      RCLCPP_INFO(this->get_logger(), "Send:%.5lf", sub_msg.data);
 
       auto msg = std_msgs::msg::UInt8MultiArray();
       msg.data = serialize(get_data);

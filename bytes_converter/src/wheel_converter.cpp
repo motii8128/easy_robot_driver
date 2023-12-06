@@ -68,7 +68,7 @@ class BytesConverter : public rclcpp::Node
     }
 
     void timer_callback(){
-      RCLCPP_INFO()
+      RCLCPP_INFO(this->get_logger(), "fl:%.5lf fr:%.5lf rl:%.5lf rr:%.5lf \n", data.motor_0, data.motor_1, data.motor_2, data.motor_3);
 
       auto msg = std_msgs::msg::UInt8MultiArray();
       msg.data = serialize(data);
