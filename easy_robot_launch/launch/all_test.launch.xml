@@ -2,6 +2,10 @@
     <!--   joy   -->
     <include file="$(find-pkg-share easy_robot_launch)/launch/joy.launch.xml"/>
     <!-- <include file="$(find-pkg-share easy_robot_launch)/launch/unity_controller.launch.xml"/> -->
+    <node pkg="easy_robot_driver" exec="command_visualizer" name="command_visualizer" output="screen" >
+        <remap from="/cmd_vel" to="/wheel/cmd_vel" />
+        <remap from="/odom" to="/odom" />
+    </node>
 
     <!--   mechanum wheel   -->
     <include file="$(find-pkg-share easy_robot_launch)/launch/mechanum.launch.xml"/>
