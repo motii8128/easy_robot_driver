@@ -27,6 +27,24 @@ OPTION      9
 PS          10
 */
 
+struct JoyPS4
+{
+    pub joy_left_x:f32,
+    pub joy_left_y:f32,
+    pub joy_right_x:f32,
+    pub joy_right_y:f32,
+    pub up_down:f32,
+    pub left_right:f32,
+    pub circle:f32,
+    pub cross:f32,
+    pub triangle:f32,
+    pub cube:f32,
+    pub r1:f32,
+    pub r2:f32,
+    pub l1:f32,
+    pub l2:f32,
+}
+
 fn main()->Result<(), DynError>
 {
     let ctx = Context::new()?;
@@ -56,5 +74,27 @@ fn main()->Result<(), DynError>
 
     loop {
         selector.wait()?;
+    }
+}
+
+fn convert_struct(msg:sensor_msgs::msg::Joy)->JoyPS4
+{
+    let result = JoyPS4{
+        joy_left_x:*msg.axes.as_slice().get(0).unwrap(),
+        joy_left_y:*msg.axes.as_slice().get(1).unwrap(),
+        joy_right_x:*msg.axes.as_slice().get(3).unwrap(),
+        joy_right_y:*msg.axes.as_slice().get(4).unwrap(),
+    };
+
+    result
+}
+
+fn fix(value:f32)->f32
+{
+    let result = 0.0;
+
+    if value < 0.1
+    {
+        
     }
 }
