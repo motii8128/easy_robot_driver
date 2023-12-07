@@ -8,7 +8,7 @@ use safe_drive::{
 
 use ros2_rust_util::get_f64_parameter;
 
-async fn main()->Result<(), DynError>
+fn main()->Result<(), DynError>
 {
     let ctx = Context::new()?;
     let node = ctx.create_node("async_motion_smoother", None, Default::default())?;
@@ -20,13 +20,12 @@ async fn main()->Result<(), DynError>
     let smooth_gain = get_f64_parameter(node.get_name(), "gain", 0.1) as f32;
     let log = Logger::new(node.get_name());
 
-    let mut target = 0.0;
     let mut history = 0.0;
 
     selector.add_subscriber(
         subscriber,
         Box::new(move |msg|{
-            target = msg.data;
+            let target = msg.data;
             let mut send_msg = std_msgs::msg::Float32::new().unwrap();
 
             let vec = target - history;
@@ -34,9 +33,21 @@ async fn main()->Result<(), DynError>
             {
                 if target > history
                 {
-                    send_msg.data = history + smooth_gain
+                    send_msg.data = history + smooth_gain;
+                }
+                else
+                {
+                    send_msg.data = history - smooth_gain;
                 }
             }
+            else
+            {
+                send_msg.data = vec;
+            }
+
+            history = send_msg.data;
+
+            let _ = publisher.send(&send_msg);
         })
     );
     
