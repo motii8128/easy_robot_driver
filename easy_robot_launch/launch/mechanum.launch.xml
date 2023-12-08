@@ -5,13 +5,13 @@
         
         <remap from="/cmd_vel" to="/cmd_vel/wheel"/>
         
-        <remap from="wheel/front_left" to="wheel/fl" />
-        <remap from="wheel/front_right" to="wheel/fr" />
-        <remap from="wheel/raw_left" to="wheel/rl" />
-        <remap from="wheel/raw_right" to="wheel/rr" />
+        <remap from="wheel/front_left" to="smoothed/fl" />
+        <remap from="wheel/front_right" to="smoothed/fr" />
+        <remap from="wheel/raw_left" to="smoothed/rl" />
+        <remap from="wheel/raw_right" to="smoothed/rr" />
     </node>
 
-    <node pkg="easy_robot_driver" exec="async_motion_smoother" name="fl_smoother" output="screen">
+<!--     <node pkg="easy_robot_driver" exec="async_motion_smoother" name="fl_smoother" output="screen">
         <param name="gain" value="0.1"/>
         <remap from="/input" to="/wheel/fl"/>
         <remap from="/output" to="/smoothed/fl"/>
@@ -30,5 +30,5 @@
         <param name="gain" value="0.1"/>
         <remap from="/input" to="/wheel/rr"/>
         <remap from="/output" to="/smoothed/rr"/>
-    </node>
+    </node> -->
 </launch>
