@@ -85,7 +85,7 @@ fn fix(value:f32)->f32
 {
     let mut result = 0.0;
 
-    if value > 0.1
+    if value.abs() > 0.1
     {
         result = value;
     }
