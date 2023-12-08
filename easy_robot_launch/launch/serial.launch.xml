@@ -6,9 +6,21 @@
         <remap from="/motor_3" to="smoothed/rr"/>
         <remap from="/output" to="serial/wheel"/>
     </node>
+    <node pkg="bytes_converter" exec="wheel_converter_node" name="machine_converter_node" output="screen">
+        <remap from="/motor_0" to="machine/motor/up_and_down"/>
+        <remap from="/motor_1" to="machine/motor/chata"/>
+        <remap from="/motor_2" to="machine/motor/dam"/>
+        <remap from="/motor_3" to="machine/motor/damdam"/>
+        <remap from="/output" to="serial/machine"/>
+    </node>
     <node pkg="easy_robot_driver" exec="serial_transporter" name="wheel_serial" output="screen">
         <remap from="/input" to="serial/wheel"/>
         <param name="port_name" value="/dev/ttyACM0"/>
+        <param name="baud_rate" value="115200"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="serial_transporter" name="machine_serial" output="screen">
+        <remap from="/input" to="serial/machine"/>
+        <param name="port_name" value="/dev/ttyACM1"/>
         <param name="baud_rate" value="115200"/>
     </node>
 </launch>

@@ -1,0 +1,26 @@
+<launch>
+    <node pkg="easy_robot_driver" exec="motor_controller" name="motor_up_and_down" output="screen">
+        <param name="motor_power_rate" value="1.0"/>
+        <param name="enable_reverse" value="true"/>
+        <remap from="/input" to="/machine/up_and_down"/>
+        <remap from="/output" to="/machine/motor/up_and_down"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="motor_controller" name="motor_chata" output="screen">
+        <param name="motor_power_rate" value="1.0"/>
+        <param name="enable_reverse" value="false"/>
+        <remap from="/input" to="/machine/chata"/>
+        <remap from="/output" to="/machine/motor/chata"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="motor_controller" name="motor_dam" output="screen">
+        <param name="motor_power_rate" value="1.0"/>
+        <param name="enable_reverse" value="false"/>
+        <remap from="/input" to="/machine/dam"/>
+        <remap from="/output" to="/machine/motor/dam"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="motor_controller" name="motor_damdam" output="screen">
+        <param name="motor_power_rate" value="1.0"/>
+        <param name="enable_reverse" value="false"/>
+        <remap from="/input" to="/machine/damdam"/>
+        <remap from="/output" to="/machine/motor/damdam"/>
+    </node>
+</launch>

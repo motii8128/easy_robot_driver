@@ -9,6 +9,7 @@
 
     <!--   mechanum wheel   -->
     <include file="$(find-pkg-share easy_robot_launch)/launch/mechanum.launch.xml"/>
+    <include file="$(find-pkg-share easy_robot_launch)/launch/machine.launch.xml"/>
 
     <!--   machine   -->
 

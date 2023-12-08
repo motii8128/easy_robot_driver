@@ -1,7 +1,7 @@
 <launch>
     <node pkg="easy_robot_driver" exec="simple_mechanum_driver" name="simple_mechanum" output="screen">
-        <param name="move_speed_rate" value="1.0"/>
-        <param name="rotation_speed_rate" value="1.0"/>
+        <param name="move_speed_rate" value="0.8"/>
+        <param name="rotation_speed_rate" value="0.8"/>
         
         <remap from="/cmd_vel" to="/cmd_vel/wheel"/>
         

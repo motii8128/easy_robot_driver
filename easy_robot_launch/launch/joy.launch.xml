@@ -4,7 +4,29 @@
     </node>
 
     <node pkg="easy_robot_driver" exec="ps4_twist" name="ps4_wheel" output="screen">
-        <remap from="/joy" to="joy" />
-        <remap from="/output" to="/cmd_vel/wheel"/>
+        <remap from="/joy" to="/joy" />
+        <remap from="/cmd_vel" to="/cmd_vel/wheel"/>
+    </node>
+
+    <node pkg="easy_robot_driver" exec="ps4_float_axes" name="up_and_down" output="screen">
+        <param name="assigned_num" value="7"/>
+        <remap from="/joy" to="/joy"/>
+        <remap from="/output" to="/machine/up_and_down"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="ps4_float_button" name="dam" output="screen">
+        <param name="assigned_num" value="9"/>
+        <remap from="/joy" to="/joy"/>
+        <remap from="/output" to="/machine/dam"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="ps4_float_button" name="damdam" output="screen">
+        <param name="assigned_num" value="10"/>
+        <remap from="/joy" to="/joy"/>
+        <remap from="/output" to="/machine/damdam"/>
+    </node>
+    <node pkg="easy_robot_driver" exec="ps4_float_two_button" name="chata_node" output="screen">
+        <param name="assigned_num_plus" value="2"/>
+        <param name="assigned_num_plus" value="0"/>
+        <remap from="/joy" to="/joy"/>
+        <remap from="/output" to="/machine/chata"/>
     </node>
 </launch>
