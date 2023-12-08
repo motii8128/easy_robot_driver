@@ -53,10 +53,10 @@ fn get_axis(axes:&F32Seq<0>)->Axes
         // axes
         joy_left_x:*axes.as_slice().get(0).unwrap(),
         joy_left_y:*axes.as_slice().get(1).unwrap(),
-        l2_axes:*axes.as_slice().get(2).unwrap(),
+        l2:*axes.as_slice().get(2).unwrap(),
         joy_right_x:*axes.as_slice().get(3).unwrap(),
         joy_right_y:*axes.as_slice().get(4).unwrap(),
-        r2_axes:*axes.as_slice().get(5).unwrap(),
+        r2:*axes.as_slice().get(5).unwrap(),
         left_right:*axes.as_slice().get(6).unwrap(),
         up_down:*axes.as_slice().get(7).unwrap(),
     };
@@ -74,8 +74,8 @@ fn get_button(button:&I32Seq<0>)->Buttons
         cube:*button.as_slice().get(3).unwrap(),
         r1:*button.as_slice().get(5).unwrap(),
         l1:*button.as_slice().get(4).unwrap(),
-        l2_button:*button.as_slice().get(6).unwrap(),
-        r2_button:*button.as_slice().get(7).unwrap(),
+        l2:*button.as_slice().get(6).unwrap(),
+        r2:*button.as_slice().get(7).unwrap(),
     };
 
     result

@@ -262,8 +262,8 @@ pub struct Axes
     pub joy_right_y:f32,
     pub up_down:f32,
     pub left_right:f32,
-    pub l2_axes:f32,
-    pub r2_axes:f32,
+    pub l2:f32,
+    pub r2:f32,
 }
 
 pub struct Buttons
@@ -274,9 +274,9 @@ pub struct Buttons
     pub triangle:i32,
     pub cube:i32,
     pub r1:i32,
-    pub r2_button:i32,
+    pub r2:i32,
     pub l1:i32,
-    pub l2_button:i32,
+    pub l2:i32,
 }
 
 pub struct JoyPS4
