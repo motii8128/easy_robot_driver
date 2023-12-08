@@ -7,7 +7,6 @@ use safe_drive::{
 };
 
 use ros2_rust_util::get_i64_parameter;
-
 use easy_robot_driver::{Axes, Buttons, JoyPS4};
 
 /* 
@@ -37,20 +36,32 @@ fn main()->Result<(), DynError>
 {
     let ctx = Context::new()?;
 
-    let node = ctx.create_node("ps4_float_axes", None, Default::default())?;
+    let node = ctx.create_node("ps4_float_two_button", None, Default::default())?;
     let mut selector = ctx.create_selector()?;
 
     let subscriber = node.create_subscriber::<sensor_msgs::msg::Joy>("/joy", None)?;
     let publisher = node.create_publisher::<std_msgs::msg::Float32>("/output", None)?;
 
-    let num = get_i64_parameter(node.get_name(), "assigned_num", 0) as usize;
+    let num_plus = get_i64_parameter(node.get_name(), "assigned_num_plus", 0) as usize;
+    let num_minus = get_i64_parameter(node.get_name(), "assigned_num_minus", 0) as usize;
 
     selector.add_subscriber(
         subscriber, 
         Box::new(move |msg|{
             let mut send_msg = std_msgs::msg::Float32::new().unwrap();
+            send_msg.data = 0.0;
 
-            send_msg.data = *msg.axes.as_slice().get(num).unwrap();
+            let plus = *msg.buttons.as_slice().get(num_plus).unwrap();
+            let minus = *msg.buttons.as_slice().get(num_minus).unwrap();
+
+            if plus == 1
+            {
+                send_msg.data = 1.0;
+            }
+            if minus == 1
+            {
+                send_msg.data = -1.0;
+            }
 
             let _ = publisher.send(&send_msg);
         })

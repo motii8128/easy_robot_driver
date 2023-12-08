@@ -7,6 +7,7 @@ use safe_drive::{
 };
 
 use ros2_rust_util::get_i64_parameter;
+use easy_robot_driver::{Axes, Buttons, JoyPS4};
 
 /* 
 __AXES__
