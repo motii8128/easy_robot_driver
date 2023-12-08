@@ -252,3 +252,35 @@ pub struct _Motors_
     motor_rr:f32,
     motor_ex:f32,
 }
+
+pub struct Axes
+{
+    // axes
+    pub joy_left_x:f32,
+    pub joy_left_y:f32,
+    pub joy_right_x:f32,
+    pub joy_right_y:f32,
+    pub up_down:f32,
+    pub left_right:f32,
+    pub l2_axes:f32,
+    pub r2_axes:f32,
+}
+
+pub struct Buttons
+{
+    // buttons
+    pub circle:i32,
+    pub cross:i32,
+    pub triangle:i32,
+    pub cube:i32,
+    pub r1:i32,
+    pub r2_button:i32,
+    pub l1:i32,
+    pub l2_button:i32,
+}
+
+pub struct JoyPS4
+{
+    pub axes:Axes,
+    pub buttons:Buttons
+}
